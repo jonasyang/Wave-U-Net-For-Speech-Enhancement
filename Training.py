@@ -99,6 +99,7 @@ def train(model_config, experiment_id, sup_dataset, load_model=None):
     if load_model != None:
         restorer = tf.train.Saver(tf.global_variables(), write_version=tf.train.SaverDef.V2)
         print("Num of variables" + str(len(tf.global_variables())))
+        # noinspection PyPackageRequirements
         restorer.restore(sess, load_model)
         print('Pre-trained model restored from file ' + load_model)
 
@@ -114,7 +115,7 @@ def train(model_config, experiment_id, sup_dataset, load_model=None):
         sup_batch = sup_batch_gen.get_batch()
         feed = {i:d for i,d in zip(sources, sup_batch[1:])}
         feed.update({mix_context : sup_batch[0]})
-        _, _sup_summaries = sess.run([separator_solver, sup_summaries], feed)
+         _, _sup_summaries = sess.run([separator_solver, sup_summaries], feed)
         writer.add_summary(_sup_summaries, global_step=_global_step)
 
         # Increment step counter, check if maximum iterations per epoch is achieved and stop in that case
@@ -187,7 +188,7 @@ def run(cfg):
 
         # Specify path to dataset, as a tracklist composed by an XML file parsed using etree in Datasets.getAudioData
         # Each track element, describing 3 sources [speech.wav, noise.wav, mix.wav] and their relevant metadata, is parsed using etree in Datasets.py
-        dataset_train = Datasets.getAudioData("")
+        dataset_train = Datasets.getAudioData("data.xml")
 
         # Pick 10 random songs for validation from train set (this is always the same selection each time since the random seed is fixed)
         val_idx = np.random.choice(len(dataset_train), size=10, replace=False)

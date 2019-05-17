@@ -7,7 +7,7 @@ import Models.UnetAudioSeparator
 import Estimate_Sources
 import Utils
 import functools
-from tensorflow.contrib.signal.python.ops import window_ops
+from tensorflow.python.ops.signal import window_ops
 
 def test(model_config, audio_list, model_folder, load_model):
     # Determine input and output shapes

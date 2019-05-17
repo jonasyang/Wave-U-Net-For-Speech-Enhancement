@@ -1,0 +1,8 @@
+*.pyc
+2791/
+1942/
+my_runs/
+.idea/
+.vscode/
+logs/
+Wave-U-Net-For-Speech-Enhancement.iml
